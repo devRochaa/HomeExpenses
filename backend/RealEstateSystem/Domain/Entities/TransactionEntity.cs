@@ -13,9 +13,9 @@ public class TransactionEntity : IEntity
 
     public TransactionKindEnum Kind { get; set; }
 
-    public int CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
     public CategoryEntity? Category { get; set; }
 
-    public int PersonId { get; set; }
+    public Guid PersonId { get; set; }
     public PersonEntity? Person { get; set; }
 }

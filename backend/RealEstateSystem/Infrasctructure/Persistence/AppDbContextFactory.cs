@@ -7,9 +7,14 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
+        var host = Host.CreateDefaultBuilder(args).Build();
+
+        var configuration = host.Services.GetRequiredService<IConfiguration>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         optionsBuilder.UseSqlServer(
-            connectionString: "Server=(localdb)\\mssqllocaldb;Database=RealEstateSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            connectionString: connectionString);
         
         return new AppDbContext(optionsBuilder.Options);
     }

@@ -5,13 +5,21 @@ namespace RealEstateSystem.Infrasctructure.Persistence;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
+    public DbSet<PersonEntity> Persons { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; }
+    public DbSet<TransactionEntity> Transactions { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<PersonEntity>(entity =>
         {
+            entity.ToTable(nameof(PersonEntity).Replace("Entity", string.Empty));
+
             entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.Id)
+                  .HasDefaultValueSql("NEWSEQUENTIALID()");
 
             entity.Property(p => p.Name)
                   .IsRequired()
@@ -25,7 +33,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<CategoryEntity>(entity =>
         {
+            entity.ToTable(nameof(CategoryEntity).Replace("Entity", string.Empty));
+
             entity.HasKey(c => c.Id);
+
+            entity.Property(p => p.Id)
+                  .HasDefaultValueSql("NEWSEQUENTIALID()");
 
             entity.Property(c => c.Description)
                   .IsRequired()
@@ -38,7 +51,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<TransactionEntity>(entity =>
         {
+            entity.ToTable(nameof(TransactionEntity).Replace("Entity", string.Empty));
+
             entity.HasKey(t => t.Id);
+
+            entity.Property(p => p.Id)
+                  .HasDefaultValueSql("NEWSEQUENTIALID()");
 
             entity.Property(t => t.Description)
                   .IsRequired()

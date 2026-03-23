@@ -15,13 +15,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Controllers\CategoryController\" />
-    <Folder Include="Controllers\TransactionController\" />
-    <Folder Include="Controllers\PersonController\" />
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Enums\" />
     <Folder Include="DTOs\" />
   </ItemGroup>
 

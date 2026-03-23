@@ -2,7 +2,7 @@
 
 namespace RealEstateSystem.Domain.Entities;
 
-public class PersonEntity: IEntity
+public sealed class PersonEntity : IEntity
 {
     public Guid Id { get; set; }
 
