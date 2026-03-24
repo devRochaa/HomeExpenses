@@ -64,10 +64,12 @@ public sealed class CategoryService(ICategoryRepository repository) : ICategoryS
             .OrderBy(c => c.Description)
             .Select(c =>
             {
+                // O total de receitas é a soma de todas as transações do tipo INCOME associadas a esta categoria
                 var totalIncome = c.Transactions
                     .Where(t => t.Kind == TransactionKindEnum.INCOME)
                     .Sum(t => t.Amount);
 
+                // O total de despesas é a soma de todas as transações do tipo EXPENSE associadas a esta categoria
                 var totalExpense = c.Transactions
                     .Where(t => t.Kind == TransactionKindEnum.EXPENSE)
                     .Sum(t => t.Amount);
@@ -79,6 +81,7 @@ public sealed class CategoryService(ICategoryRepository repository) : ICategoryS
                     Purpose = c.Purpose,
                     TotalIncome = totalIncome,
                     TotalExpense = totalExpense,
+                    // O saldo para a categoria é a diferença entre as receitas e despesas
                     Balance = totalIncome - totalExpense
                 };
             })

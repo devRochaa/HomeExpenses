@@ -98,10 +98,12 @@ public class PersonService(IPersonRepository repository) : IPersonService
             .OrderBy(p => p.Name)
             .Select(p =>
             {
+                // O total de receitas é a soma de todas as transações do tipo INCOME
                 var totalIncome = p.Transactions
                     .Where(t => t.Kind == TransactionKindEnum.INCOME)
                     .Sum(t => t.Amount);
 
+                // O total de despesas é a soma de todas as transações do tipo EXPENSE
                 var totalExpense = p.Transactions
                     .Where(t => t.Kind == TransactionKindEnum.EXPENSE)
                     .Sum(t => t.Amount);
@@ -112,6 +114,7 @@ public class PersonService(IPersonRepository repository) : IPersonService
                     Name = p.Name,
                     TotalIncome = totalIncome,
                     TotalExpense = totalExpense,
+                    // O saldo líquido é a diferença entre as receitas e despesas
                     Balance = totalIncome - totalExpense
                 };
             })

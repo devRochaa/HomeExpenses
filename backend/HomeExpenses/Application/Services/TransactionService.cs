@@ -43,9 +43,11 @@ public sealed class TransactionService(
         var category = await _categoryRepository.GetById(dto.CategoryId)
             ?? throw new KeyNotFoundException("Categoria nÃ£o encontrada.");
 
+        // Menores de idade podem registrar apenas despesas.
         if (person.Age < 18 && dto.Kind != TransactionKindEnum.EXPENSE)
             throw new InvalidOperationException("Menores de idade podem registrar apenas despesas.");
 
+        //Uma transação não pode ser registrada se a categoria não suportar o tipo de transação (Receita ou Despesa).
         if (!CategorySupportsTransaction(category.Purpose, dto.Kind))
             throw new InvalidOperationException("A categoria informada nÃ£o aceita o tipo de transaÃ§Ã£o selecionado.");
 
